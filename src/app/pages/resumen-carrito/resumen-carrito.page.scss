@@ -1,0 +1,46 @@
+.miavatar  {
+  width:70px !important;
+  height : 70px !important;
+  max-width: 100px !important;  //any size
+  max-height: 100px !important; //any size
+}
+.center {
+display: block;
+align-items: center;
+  margin-top: 50%;
+}
+.carta{
+  --ion-background-color:#cef3da;
+margin: 20px 0px 20px 10px;
+}
+.margen{
+  margin-bottom: 3px;
+}
+.posiciona{
+  position: absolute;
+  bottom: 9px;
+  left: 10px;
+}
+.posiciona2{
+  position: absolute;
+  top: 5px;
+}
+.bordeinput{
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+.bordeform{
+  border: solid 1px lightslategrey;
+}
+ion-segment-button{
+  --indicator-color: #0c4e23;
+}
+ion-segment{
+
+}
+
+
+
+
+
+

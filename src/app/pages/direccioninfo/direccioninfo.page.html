@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Editar Dirección</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+    <div>
+      <form class="ion-padding">
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label position="stacked">Nombre de via <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input clearInput="true"  type="text" name="nombre" [placeholder]="direccion.nombre_via" [(ngModel)]="direccion.nombre_via"></ion-input>
+            <small *ngIf="direccion.nombre_via == ''" style="color: red">Campo Obligatorio</small>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Puerta y numero <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input clearInput="true" type="text" name="numero" placeholder="{{direccion.numero}}"  [(ngModel)]="direccion.numero"></ion-input>
+            <small *ngIf="direccion.numero == ''" style="color: red">Campo obligatorio</small>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Pais <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input clearInput="true" type="text" name="pais" placeholder="{{direccion.pais}}"  [(ngModel)]="direccion.pais"></ion-input>
+            <small *ngIf="direccion.pais == ''" style="color: red">Campo obligatorio </small>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Ciudad <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input clearInput="true" type="text" name="ciudad" placeholder="{{direccion.ciudad}}"  [(ngModel)]="direccion.ciudad"></ion-input>
+            <small *ngIf="direccion.ciudad == ''" style="color: red">Campo obligatorio </small>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Codigo Postal <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input clearInput="true" type="text" name="codigopostal" placeholder="{{direccion.cod_postal}}"  [(ngModel)]="direccion.cod_postal"></ion-input>
+            <small *ngIf="direccion.cod_postal == 0" style="color: red">Campo obligatorio </small>
+          </ion-item>
+        </ion-list>
+      </form>
+    </div>
+    <div>
+      <ion-row style="justify-content: center" class="ion-margin-top">
+        <ion-button  fill="outline"  class="exitoo"  (click)="guardar()">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button  fill="outline" class="canceladoo"  (click)="cancelado()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </div>
+  </ion-content>
+</ion-content>

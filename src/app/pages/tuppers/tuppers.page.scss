@@ -1,0 +1,80 @@
+
+.prueba {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.exito{
+  --background-color: #f5eee2;
+}
+ion-slide{
+  display: block;
+}
+ion-card{
+  border-radius: 10px;
+}
+ion-img {
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+}
+.image {
+  width: 100%;
+  height: 100%;
+}
+.borde {
+  border: 1px solid red;
+}
+.imagenes{
+  width: 100%;
+  height: 100%;
+}
+.fab1{
+  position: absolute;
+  top: 10px;
+}
+.fab2{
+  position: absolute;
+  top: 25px;
+}
+ion-fab-button{
+  height: 56px;
+  width: 56px;
+}
+ion-fab{
+  size: 70px;
+}
+.fabgrande{
+  height: 66px;
+  width: 66px;
+}
+.icono{
+   width: 65%;
+   height: 65%;
+}
+.fondoo{
+  //--background: #0c4e23;
+  --background: #c6e1f5;
+  --color: black;
+}
+.fondo2{
+  --background: #a7efad;
+  --color: black;
+}
+.extra{
+  --background: #0c4e23;
+  --background-activated:  #00bb2d;
+}
+.cartita{
+  width: 100%;
+  height: 100%;
+}
+.reset{
+  position: absolute;
+  top: 5px;
+  right: 1px;
+}
+ion-card-title{
+  color: black;
+}
+
+

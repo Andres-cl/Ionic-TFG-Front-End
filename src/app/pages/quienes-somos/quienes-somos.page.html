@@ -1,0 +1,29 @@
+<ion-content class="ion-text-center ion-margin-vertical">
+  <ion-list lines="full" class="ion-margin-top">
+    <ion-item lines="none">
+      <ion-avatar class="item-avatar" slot="start">
+        <img src="/assets/logo.png">
+      </ion-avatar>
+      <h4 class="ion-margin-start">FF Company</h4>
+    </ion-item>
+    <ion-item>
+      <ion-note class="ion-margin">Somos una compañía que se dedica a la elaboración de platos saludables y tuppers personalizados que después son enviados a los domicilios de nuestros clientes para que puedan seguir
+      el estilo de vida que desean sin tener que dedicarle mucho tiempo a la cocina.</ion-note>
+    </ion-item>
+    <ion-item class="posicion">
+      <ion-col>
+      <ion-slides [options]="slideOpts">
+        <ion-slide *ngFor="let foto of platos">
+          <div class="div ion-margin-vertical">
+          <img class="image" [src]="foto.foto" alt="">
+          </div>
+        </ion-slide>
+      </ion-slides>
+      </ion-col>
+    </ion-item>
+    <ion-item>
+    <div class="ion-margin" id="map"></div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

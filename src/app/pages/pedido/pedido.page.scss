@@ -1,0 +1,37 @@
+.tamanyo{
+  width: 200px;
+  height: 200px;
+
+}
+ion-img{
+  height: 70vh;
+  width: auto;
+  margin: auto;
+  display: block;
+}
+.jeje{
+  color: #efefef;
+}
+.exito{
+  color: #2F7A31;
+  --background: #bad2b6;
+  --border-radius: 10px;
+}
+.miavatar  {
+  width:50px !important;
+  height : 50px !important;
+  max-width: 100px !important;  //any size
+  max-height: 100px !important; //any size
+}
+ion-content{
+  --ion-background-color:#e1f4d9;
+}
+.carta{
+  --ion-background-color: white;
+}
+.margen{
+  margin-top: 20%;
+}
+.black{
+  color: black;
+}

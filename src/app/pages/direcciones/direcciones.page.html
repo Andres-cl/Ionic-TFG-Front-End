@@ -1,0 +1,88 @@
+
+<ion-content>
+  <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content pulling-icon="lines"></ion-refresher-content>
+  </ion-refresher>
+<div *ngIf="direcciones.length > 0" class="ion-padding">
+  <ion-card style="background-color: #e3e3e3" *ngFor="let direccion of direcciones">
+    <ion-card-header>
+      <ion-card-title class="ion-text-capitalize" style="color: black">{{direccion.nombre_via}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list lines="full" class="milista">
+        <ion-item class="lista">
+          <ion-label>Número: </ion-label>
+          <ion-note class="nota" slot="end">{{direccion.numero}}</ion-note>
+        </ion-item>
+        <ion-item class="lista">
+          <ion-label>Ciudad:</ion-label>
+          <ion-note class="nota" slot="end">{{direccion.ciudad}}</ion-note>
+        </ion-item >
+        <ion-item class="lista">
+          <ion-label>País:</ion-label>
+          <ion-note class="nota" slot="end">{{direccion.pais}}</ion-note>
+        </ion-item>
+        <ion-item lines="none" class="lista">
+        <ion-label>Código postal:</ion-label>
+        <ion-note class="nota" slot="end">{{direccion.cod_postal}}</ion-note>
+      </ion-item>
+
+      </ion-list>
+      <ion-row class="ion-justify-content-between ion-margin-top">
+        <ion-button (click)="actualizarDireccion(direccion.id)" size="small" color="companythree">
+          <ion-icon size="icon-only" color="light" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="borraDireccion(direccion.id)" size="small" color="danger">
+          <ion-icon size="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</div>
+  <div class="ion-padding">
+    <ion-button class="new"  #button (click)="muestraanyadeDireccion(); scroll()" expand="block">
+      <ion-icon slot="start" name="chevron-down-outline"></ion-icon>
+      Nueva dirección
+    </ion-button>
+  </div>
+<div *ngIf="anyadir === true" >
+  <ion-card class="ion-text-center ion-padding carditemclaro">
+    <ion-card-title>Nueva Dirección</ion-card-title>
+<form #form=ngForm (ngSubmit)="anyadeDireccion()">
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label position="floating">Nombre-Via <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input clearInput="true" type="text" name="Nombre_Via"  [(ngModel)]="direccion.nombre_via" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Número y Puerta <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text" clearInput="true" name="numero"  [(ngModel)]="direccion.numero" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">País <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text" name="Pais" clearInput="true" [(ngModel)]="direccion.pais" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Ciudad<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="text" name="Ciudad" clearInput="true" [(ngModel)]="direccion.ciudad" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Código Postal <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input type="number" name="postal" clearInput="true" [(ngModel)]="codpostal" required></ion-input>
+    </ion-item>
+  </ion-list>
+    <div>
+      <ion-row style="justify-content: center" class="ion-margin-top">
+    <ion-button class="ion-margin exitoo" fill="outline"  type="submit" [disabled]="form.invalid">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-button>
+        <ion-button  fill="outline" class="canceladoo ion-margin-top"  (click)="cancelado()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
+    </div>
+</form>
+  </ion-card>
+</div>
+</ion-content>

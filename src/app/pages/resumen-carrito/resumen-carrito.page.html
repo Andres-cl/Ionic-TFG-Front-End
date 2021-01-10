@@ -1,0 +1,277 @@
+<app-header titulo="resumen pedido"></app-header>
+
+
+<ion-content (ionScrollEnd)="pago != ''">
+    <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content pullingIcon="lines"
+                               refreshing-spinner="lines"
+        ></ion-refresher-content>
+    </ion-refresher>
+    <div class="ion-no-padding" *ngIf="globales.productosCarrito > 0">
+        <div>
+            <h4 class="ion-margin-vertical ion-text-capitalize ion-text-center"><b> tu
+                Pedido, {{globales.user.nombre}}</b></h4>
+            <ion-item-sliding *ngFor="let p of carrito.lineasCarrito; let i = index"
+                              class="animate__animated animate__fadeInLeft"
+                              [ngStyle]="{'animation-delay':getDelay(i)+'s'}">
+                <ion-item #col class="ion-text-wrap">
+                    <ion-avatar class="miavatar" slot="start">
+                        <ion-img [src]="p.foto"></ion-img>
+                    </ion-avatar>
+                    <ion-grid>
+                        <ion-row class="ion-justify-content-end">
+                            <ion-col size="10" *ngIf="p.tupperid != null">
+                                {{p.cantidad}} X <b>Tupper personalizado</b>
+                            </ion-col>
+                            <ion-col size="10" *ngIf="p.platoid != null">
+                                {{p.cantidad}} X <b class="ion-text-capitalize">{{p.nombrePlato}}</b>
+                            </ion-col>
+                            <ion-col size="10"
+                                     *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan semanal'">
+                                {{p.cantidad}} X <b class="ion-text-capitalize">Plan Semanal</b>
+                            </ion-col>
+                            <ion-col size="10"
+                                     *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan personal'">
+                                {{p.cantidad}} X <b class="ion-text-capitalize">Plan Personalizado</b>
+                            </ion-col>
+                            <ion-col size="2" class="ion-text-end ion-no-padding">
+                                <ion-button color="medium" fill="clear"
+                                            (click)="carrito.aumentaLineaCarrito(p, i,carrito.lineasCarrito)">
+                                    <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="p.tupperid != null || p.plansemanalid != null">
+                            <ion-col>
+                                <ion-note *ngIf="p.tupperid != null">
+                                    ({{p.infoTupper}})
+                                </ion-note>
+                                <ion-note *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan semanal'"
+                                          (click)="abreInfoPlanSemanal(p.plansemanalid)" color="companytwo">
+                                    ¡Click para info!
+                                </ion-note>
+                                <ion-note *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan personal'">
+                                    Dieta semanal personalizada por nuestros nutricionistas
+                                </ion-note>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-end">
+                            <ion-col size="10">
+                                {{ p.precio | currency:'EUR' }}
+                            </ion-col>
+                            <ion-col size="2" class="ion-text-end ion-no-padding">
+                                <ion-button color="medium" fill="clear"
+                                            (click)="carrito.reduceLineaCarrito(p,i,carrito.lineasCarrito, col)">
+                                    <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="danger"
+                                     (click)="carrito.eliminaProductoCarrito(p, i, carrito.lineasCarrito, col)">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-item lines="none">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col (click)="gastosEnvio()" size="8">
+                            Gastos de envío:
+                            <ion-icon name="information-circle" size="small"></ion-icon>
+                        </ion-col>
+                        <ion-col size="4">
+                            <div class="ion-text-end">
+                            <ion-note slot="end" *ngIf="carrito.getTotal()>50;">
+                                {{0 | currency : 'EUR'}}
+                            </ion-note>
+                            <ion-note slot="end" *ngIf="carrito.getTotal() <= 50 ">
+                                {{4.99 | currency : 'EUR'}}
+                            </ion-note>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item class="ion-margin-top" lines="none">
+                <ion-grid>
+                    <ion-grid *ngIf="descuento === 0">
+                        <ion-row>
+                            <ion-col size="4" class="ion-margin-top">
+                                Código :
+                            </ion-col>
+                            <ion-col size="8">
+                                <ion-item lines="none" class="bordeinput ">
+                                    <ion-input #codigo name="codigoPromocional" clearInput="true" type="text"
+                                               max="20" placeholder="Inserta Código"
+                                               [(ngModel)]="codigoPromocional"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-end">
+                            <ion-col (click)="compruebaCodigo()" class="ion-text-end">
+                                <small style="color: blue; text-decoration: underline">Aplicar Descuento</small>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <ion-row *ngIf="descuento>0">
+                        <ion-col size="8">
+                            <b>Descuento aplicado,</b>
+                        </ion-col>
+                        <ion-col size="4" class="ion-text-end">
+                            <B>-{{descuento | currency: 'EUR'}}</B>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col style="text-decoration: underline">
+                            TOTAL:
+                        </ion-col>
+                        <ion-col class="ion-text-end">
+                            <b>{{ getPrecioTotal() | currency:'EUR' }}</b>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </div>
+        <div class="ion-text-center">
+            <h4>
+                <b>Dirección del envío:</b>
+            </h4>
+            <ion-item lines="full" class="ion-no-padding ">
+                <ion-card class="ion-no-padding carta card-item ion-no-margin">
+                    <ion-card-content class="ion-text-center ion-no-padding" *ngIf="direcciones.length > 0 ">
+                        <ion-row class="ion-justify-content-center ion-margin">
+                            {{direccion.nombre_via}}, {{direccion.numero}}, {{direccion.cod_postal}}
+                            , {{direccion.ciudad}}.
+                        </ion-row>
+                        <ion-row class=" ion-margin-top ion-justify-content-between">
+                            <ion-col class="">
+                                <ion-text (click)="actualizarDireccion(direccion.id)" class="posiciona"
+                                          color="primary"><small>Modificar dirección</small></ion-text>
+                            </ion-col>
+                            <ion-col class=" ion-text-right">
+                                <ion-button class=" ion-no-padding ion-no-margin" style="margin-right: 15px"
+                                            fill="clear" (click)="showDirecciones()">
+                                    <ion-icon class="" size="icon-only"
+                                              name="chevron-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                    <ion-card-content *ngIf="!direcciones.length > 0">
+                        <ion-row class="ion-justify-content-center">
+                            No tienes direcciones guardadas
+                        </ion-row>
+                        <ion-row class="ion-justify-content-center">
+                            <ion-text (click)="pushDirecciones()" color="primary"
+                                      style="text-decoration: underline">Añade una aqui
+                            </ion-text>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-item>
+        </div>
+    </div>
+    <div *ngIf="globales.productosCarrito > 0">
+        <h4 class="ion-text-center ion-margin-bottom">
+            <b>Método de pago:</b>
+        </h4>
+        <div style="margin-bottom: 8%" class="ion-padding-horizontal">
+            <ion-segment color="company" [(ngModel)]="pago" (ngModelChange)="scrollBottom()">
+                <ion-segment-button value="Tarjeta de credito" layout="icon-start" >
+                    <ion-icon src="/assets/custom-icons/card.svg" >
+                    </ion-icon>
+                    <ion-label  >
+                        Tarjeta de crédito
+                    </ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="Paypal" layout="icon-start">
+                    <ion-icon src="/assets/custom-icons/ios-paypal.svg"></ion-icon>
+                    <ion-label>Paypal</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+        <div [ngSwitch]="pago">
+            <div class="ion-padding ion-margin-top" style="margin-bottom: 10%" *ngSwitchCase="'Tarjeta de credito'">
+                <ion-row>
+                    <ion-col style="margin-top: 8px"><b>Detalles de pago</b></ion-col>
+                    <ion-col><img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                    </ion-col>
+                </ion-row>
+                <form #formulario=ngForm (ngSubmit)="realizarPedido()">
+                    <ion-row class="ion-margin-top">
+                        <ion-col size="12">
+                            <ion-item class="bordeinput itemclaro" lines="none">
+                                <ion-input required type="text" name="titular" placeholder="Titular"
+                                           [(ngModel)]="visa.titular"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-margin-top">
+                        <ion-col size="12">
+                            <ion-item class="bordeinput itemclaro" lines="none">
+                                <ion-input required type="number" pattern="[0-9]{13,16}" name="numerotarjeta"
+                                           placeholder="Numero de la Tarjeta"
+                                           [(ngModel)]="visa.numeroTarjeta"></ion-input>
+                                <ion-icon name="card-outline"></ion-icon>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-margin-top">
+                        <ion-col size="8">
+                            <ion-item class="bordeinput itemclaro" lines="none">
+                                <ion-input readonly="true" (click)="pickerFecha()" name="caducidadmes"
+                                           placeholder="Cad: MM / YY" [(ngModel)]="visa.fecha">
+                                </ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="4">
+                            <ion-item class="bordeinput itemclaro" lines="none">
+                                <ion-input required type="text" name="codigo" placeholder="CVC"
+                                           [(ngModel)]="visa.cvcodigo"></ion-input>
+                            </ion-item>
+                            <small *ngIf="visa.cvcodigo > 999" style="color: red">Codigo erroneo</small>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-margin-top ion-justify-content-center">
+                        <ion-col size="8">
+                            <ion-button [disabled]="formulario.invalid || visa.fecha === '' || visa.cvcodigo>999"
+                                        expand="block" type="submit">
+                                Pagar: {{ getPrecioTotal() | currency:'EUR' }}</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </form>
+            </div>
+            <div *ngSwitchCase="'Paypal'" style="margin-bottom: 10%">
+                <ion-row class="ion-text-center ion-margin-top">
+                    <ion-col size="12"><b class="ion-text-center">Total a
+                        pagar: {{getPrecioTotal() | currency:'EUR'}}</b></ion-col>
+                </ion-row>
+                <ion-row class="ion-justify-content-center ion-padding ion-margin-top">
+                    <ion-col size="6">
+                        <ion-img (click)="realizarPedido()" src="/assets/paypaypal.png"></ion-img>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!globales.productosCarrito > 0" class="ion-text-center center">
+        <ion-item lines="none">
+            <h4>
+                Te has quedado sin productos en el carrito
+            </h4>
+        </ion-item>
+        <div class="ion-align-text-center">
+            <ion-button size="small" color="warning" (click)="volver()">
+                VOLVER
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

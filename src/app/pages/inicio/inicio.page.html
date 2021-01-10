@@ -1,0 +1,20 @@
+<app-header titulo="Inicio"></app-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content pullingIcon="lines"
+                               refreshing-spinner="lines"
+        ></ion-refresher-content>
+    </ion-refresher>
+    <ion-card (click)="pushTuppers()">
+        <img src="/assets/banners/personaliza tupper.jpg" class="imagenes">
+    </ion-card>
+    <ion-card (click)="pushPlatos()" >
+        <img src="/assets/banners/platos.jpg" class="imagenes">
+    </ion-card>
+    <ion-card (click)="pushDieta()" >
+        <img  src="/assets/banners/dieta.jpg" class="imagenes">
+    </ion-card>
+    <ion-card (click)="pushSemanal()">
+        <img src="/assets/banners/semanal.jpg" class="imagenes">
+    </ion-card>
+</ion-content>

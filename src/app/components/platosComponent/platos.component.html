@@ -1,0 +1,24 @@
+<ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content pulling-icon="lines"></ion-refresher-content>
+</ion-refresher>
+  <ion-row>
+    <ion-col size="6" *ngFor="let plato of platos">
+      <ion-card class="ion-no-padding ion-text-center">
+        <div>
+        <img (click)="abreInfoPlato(plato)" [src]="plato.foto" alt="">
+        </div>
+        <ion-card-content style="padding: 3px" class="card-item">
+          <div class="posiciona">
+          <ion-card-subtitle style="margin-top: 5px" ><h2><b>{{plato.nombre}}</b></h2></ion-card-subtitle>
+            <ion-row style="justify-content: space-between" class="ion-margin-top ion-padding-start ion-padding-end">
+              <h1 class="ion-text-start">{{plato.precio}}€</h1>
+              <ion-icon class="animate__animated animate__fadeInLeft" (click)="agregarPlato(plato)" size="large" name="cart"></ion-icon>
+            </ion-row>
+          <ion-row class="ion-justify-content-center ion-margin-top">
+            <app-rating class="animate__animated animate__fadeInUp" [(rating)]="plato.valoracion"></app-rating>
+          </ion-row>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>

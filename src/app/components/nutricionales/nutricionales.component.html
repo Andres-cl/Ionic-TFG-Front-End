@@ -1,0 +1,19 @@
+<ion-list lines="none">
+  <ion-list-header ><ion-label class="ion-no-margin ion-text-uppercase">{{dia}}</ion-label></ion-list-header>
+  <ion-item>
+    <ion-label slot="start">Proteinas</ion-label>
+    <ion-note slot="end">{{nutricion.proteinas}}</ion-note>
+  </ion-item>
+  <ion-item>
+    <ion-label slot="start">Grasas</ion-label>
+    <ion-note slot="end">{{nutricion.grasas}}</ion-note>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label slot="start">Carbohidratos</ion-label>
+    <ion-note slot="end">{{nutricion.carbohidratos}}</ion-note>
+  </ion-item>
+  <ion-item>
+    <ion-label slot="start">Calorias</ion-label>
+    <ion-note color="dark" slot="end">{{nutricion.calorias}}</ion-note>
+  </ion-item>
+</ion-list>

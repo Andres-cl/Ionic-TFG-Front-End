@@ -1,0 +1,97 @@
+<ion-content class="margen ion-margin-top">
+  <div class="ion-text-center margen">
+  <h1 class="black">Pedido Nº <b (click)="abrepedido = !abrepedido" style="color: blue;text-decoration: underline">{{pedidoid}}</b></h1>
+  <h5 class="black">Realizado con éxito</h5>
+  </div>
+  <div style="margin-top: 45px">
+    <ion-img  class="tamanyo "  src="/assets/exito.png"></ion-img>
+  </div>
+  <div class="ion-text-center ion-padding" style="margin-top: 30px">
+      <ion-row class="ion-justify-content-center">
+        <ion-text class="black">Será enviado de 24H a 72H a la direccion:</ion-text>
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-note>{{direccion}}</ion-note>
+      </ion-row>
+  </div>
+  <div class="ion-text-center ion-margin-top">
+    <ion-button (click)="abrepedido = !abrepedido" class="exito" strong="true">
+      <ion-icon class="jeje" slot="end" name="lista"></ion-icon>
+      VER DETALLES DE MI PEDIDO
+    </ion-button>
+  </div>
+  <div *ngIf="abrepedido">
+    <ion-card>
+    <div class="carta">
+      <ion-item *ngFor="let p of lineaspedido" lines="full" class="ion-text-wrap itemclaro">
+        <ion-avatar class="miavatar" slot="start">
+          <img [src]="p.foto">
+        </ion-avatar>
+        <ion-grid>
+          <ion-row  class="ion-justify-content-center">
+            <ion-col *ngIf="p.platoid != null" >
+              <b class="ion-text-capitalize">{{p.nombrePlato}}</b>
+            </ion-col>
+            <ion-col *ngIf="p.tupperid != null" >
+            <b>Tupper personalizado</b>
+          </ion-col>
+            <ion-col *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan semanal'" >
+              <b>Plan Semanal</b>
+            </ion-col>
+            <ion-col *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan personal'" >
+              <b>Plan Personalizado</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="p.tupperid != null">
+            <ion-col>
+              <ion-note>
+                ({{p.infoTupper}})
+              </ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="5">
+              <ion-note>Cantidad:</ion-note>
+            </ion-col>
+            <ion-col size="2">
+              {{p.cantidad}}
+            </ion-col>
+            <ion-col size="4" offset="1">
+              {{ p.precio | currency:'EUR' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="8">
+              Precio Total:
+            </ion-col>
+            <ion-col size="4">
+              <b>{{preciopedido | currency:'EUR'}}</b>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+    </ion-card>
+  </div>
+  <div *ngIf="nuevoCode">
+    <ion-card class="ion-margin carta">
+      <ion-card-header class="ion-margin-bottom" color="success">
+        <ion-card-title>Enhorabuena!</ion-card-title>
+        <ion-card-subtitle>
+          Te has ganado un codigo promocional.
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        Hemos visto que no tenias ningun codigo y queremos premiar tu compra con un descuento del 5% para tu próxima compra. Tan solo deberas utilizar el siguiente código: <h1 class="ion-margin"><b>{{codigo}}</b></h1>
+        <h5 *ngIf="minimo > 0" slot="end" class="ion-text-end">*Valido en compras superiores a {{minimo}}€</h5>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="ion-text-end ion-padding ion-margin-bottom">
+    <ion-button color="companyfour" (click)="pushInicio()"> Volver </ion-button>
+  </div>
+</ion-content>

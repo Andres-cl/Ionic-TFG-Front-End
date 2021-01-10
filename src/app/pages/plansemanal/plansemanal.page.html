@@ -1,0 +1,63 @@
+<app-header titulo="Plan Semanal"></app-header>
+
+<ion-content>
+
+    <ion-grid class="ion-margin-top" fixed="">
+        <ion-row>
+            <ion-col class="ion-text-center" size="2.4" *ngFor="let i of [1,2,3,4,5]">
+                <ion-text>{{getDia(i)}}</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row  *ngFor="let r of [0,1,2]">
+            <ion-col size="2.4" class="gridColor" *ngFor="let c of [0,1,2,3,4]">
+                <div *ngIf="imagenesPlan[getIndex(r,c)] === undefined" class="ion-text-center">
+                    <ion-card class="ion-no-margin" (click)="rellenaHueco(r,c)">
+                        <ion-icon class="icono ion-margin-top ion-margin-bottom" size="large" name="add-outline"></ion-icon>
+                        <br>
+                        <small class="posciona2 ion-text-center">{{getComida(r)}}</small>
+                    </ion-card>
+                </div>
+                <div *ngIf="imagenesPlan[getIndex(r,c)] != undefined" class="ion-text-center">
+                        <ion-item-sliding #slide>
+                        <ion-item class="ion-no-padding">
+                          <img slot="start" class="ion-no-margin" (click)="rellenaHueco(r,c)" [src]="imagenesPlan[getIndex(r,c)]"/>
+                        </ion-item>
+                            <ion-item-options side="end">
+                                <ion-item-option (click)="eliminaPlatoPlan(getIndex(r,c),slide)" color="danger">
+                                    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                                </ion-item-option>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col (click)="popNutricionales(i+1)" class="ion-text-center nutricionalesPS" size="2.4" *ngFor="let i of [0,1,2,3,4]">
+                <ion-note *ngIf="nutricionales[i].calorias != undefined">{{nutricionales[i].calorias}}</ion-note><br>
+                <ion-note style="text-decoration: underline">Kcals</ion-note>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-row class="ion-justify-content-around ion-margin-bottom">
+        <ion-col class="ion-text-center" size="3">
+            <ion-chip (click)="condicionesPrecio = !condicionesPrecio" class="ion-padding ion-text-wrap" outline style="margin-top: 10px" color="companytwo">
+                <ion-icon name="card-outline" color="companytwo"></ion-icon>
+                <label>Total: {{precioPlan | currency : 'EUR'}}*</label>
+            </ion-chip>
+        </ion-col>
+        <ion-col class="" size="4">
+            <ion-button (click)="agregaPlanSemanal()"  size="medium" expand="block" fill="outline" color="companythree" type="submit">
+                Añadir al carrito
+            </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="condicionesPrecio" class="ion-justify-content-center ion-margin-bottom">
+        <ion-col size="6">
+            <small>
+            <ion-note slot="start">
+                * EL precio del plan implica una rebaja del 15% de cada uno de los platos y tuppers seleccionados para el mismo
+            </ion-note>
+            </small>
+        </ion-col>
+    </ion-row>
+</ion-content>

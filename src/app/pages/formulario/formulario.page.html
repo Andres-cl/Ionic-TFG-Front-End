@@ -1,0 +1,25 @@
+<ion-content>
+<form #form=ngForm class="ion-text-center ion-padding" (ngSubmit)="postMensaje(form)">
+    <h2 style="text-decoration: underline">Dejanos Tu Aportación</h2>
+  <ion-note>Cualquier duda o consulta que necesites conocer</ion-note>
+  <ion-item  lines="full" class="ion-margin-top">
+    <ion-label position="floating">Nombre <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true" required="true" type="text" name="nombre" [(ngModel)]="mensaje.nombre"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Correo <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true" required="true" type="text" name="correo" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" [(ngModel)]="mensaje.correo"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Teléfono <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true" required="true" type="text" max="9" name="teléfono" [(ngModel)]="mensaje.telefono"></ion-input>
+  </ion-item>
+  <ion-item lines="full">
+    <ion-label position="floating">Tu pregunta <ion-text color="danger">*</ion-text></ion-label>
+    <ion-textarea required="true" rows="7" spellcheck="true" maxlength="255" type="text" name="pregunta" [(ngModel)]="mensaje.contenido"></ion-textarea>
+  </ion-item>
+  <div class="ion-margin-top">
+    <ion-button type="submit" class="new" [disabled]="form.invalid" slot="end">Enviar</ion-button>
+  </div>
+</form>
+</ion-content>

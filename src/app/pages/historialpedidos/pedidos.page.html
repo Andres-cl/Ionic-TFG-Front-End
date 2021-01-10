@@ -1,0 +1,95 @@
+<ion-content>
+    <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content pulling-icon="lines"></ion-refresher-content>
+    </ion-refresher>
+    <div class="ion-margin-top ion-text-center">
+        <h3><b>Selecciona un pedido para ver su información:</b></h3>
+    </div>
+    <div class="ion-padding">
+        <ion-item class="ion-margin-top itemPersonalizado" lines="none">
+            <ion-label>Pedidos</ion-label>
+            <ion-select (ionChange)="modificaPedido(pedidoid)" name="tipoverdura"
+                        [(ngModel)]="pedidoid">
+                <ion-select-option
+                        [value]="pedido.ref_pedido"
+                        *ngFor="let pedido of pedidos; let i = index">{{pedido.fecha_pedido.toString().slice(0, 10)   }}
+                    - {{pedido.precio.toFixed(2)}}€ - Nº{{pedido.ref_pedido}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </div>
+    <div *ngIf="lineasPedido.length > 0" class="carta">
+        <ion-card class="ion-text-center">
+            <ion-item *ngFor="let p of lineasPedido" lines="full" class="ion-text-wrap itemclaro">
+                <ion-avatar class="miavatar" slot="start">
+                    <img [src]="p.foto">
+                </ion-avatar>
+                <ion-grid>
+                    <ion-row class="ion-justify-content-center">
+                        <ion-col *ngIf="p.platoid != null">
+                            <b class="ion-text-capitalize">{{p.nombrePlato}}</b>
+                        </ion-col>
+                        <ion-col *ngIf="p.tupperid != null">
+                            <b>Tupper personalizado</b>
+                        </ion-col>
+                        <ion-col *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan semanal'">
+                            <b>Plan Semanal</b>
+                        </ion-col>
+                        <ion-col *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan personal'">
+                            <b>Plan Personalizado</b>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="p.tupperid != null">
+                        <ion-col>
+                            <ion-note>
+                                ({{p.infoTupper}})
+                            </ion-note>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="p.plansemanalid != null">
+                        <ion-col>
+                            <ion-note *ngIf="p.tipo_producto === 'Plan semanal'"
+                                      (click)="abreInfoPlanSemanal(p.plansemanalid)" color="companytwo">
+                                ¡Click para info!
+                            </ion-note>
+                            <ion-note *ngIf="p.tipo_producto === 'Plan personal'"
+                                      (click)="abreInfoPlanSemanal(p.plansemanalid)">
+                                Plan semanal personalizado por nuestros nutricionistas
+                            </ion-note>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="5">
+                            <ion-note>Cantidad:</ion-note>
+                        </ion-col>
+                        <ion-col size="2">
+                            {{p.cantidad}}
+                        </ion-col>
+                        <ion-col size="4" offset="1">
+                            {{ p.precio | currency:'EUR' }}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item lines="none" class="itemclaro">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="8">
+                            Precio Total:
+                        </ion-col>
+                        <ion-col (click)="showAlertPrecio()" size="4">
+                            <b>{{preciopedido | currency:'EUR'}}</b>
+                            <ion-icon name="information-circle" size="small"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card>
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="6">
+                <ion-button (click)="repitePedido()" class="new" color="company" strong="true" expand="block">
+                    Repetir pedido
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

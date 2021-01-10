@@ -1,0 +1,154 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Personaliza Tupper</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="lines"
+                           refreshing-spinner="lines"
+    ></ion-refresher-content>
+  </ion-refresher>
+<div class="ion-margin-vertical">
+  <div class="ion-no-padding">
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="6">
+      <ion-card class="ion-no-margin proteCard">
+    <ion-item lines="none" class="prote">
+      <ion-label>Poteínas</ion-label>
+      <ion-select class="ion-no-margin"  (ionChange)="modificaDatos()" [(ngModel)]="prueba[0].alimento">
+        <ion-select-option [value]="a" *ngFor="let a of proteinas">{{a.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4">
+      <ion-card class="ion-no-margin proteCard">
+      <ion-item lines="none" class="prote">
+        <ion-label>Cantidad</ion-label>
+        <ion-select (ionChange)="modificaDatos()" [(ngModel)]="prueba[0].cantidad">
+          <ion-select-option *ngFor="let c of [0,50,100,150,200,250]">{{c}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+    <ion-row *ngIf="contador >=1" class="animate__animated animate__fadeInRight ion-justify-content-center">
+      <ion-col size="6">
+        <ion-card class="ion-no-margin carboCard">
+        <ion-item lines="none" class="carbo">
+          <ion-label>Carbohidratos</ion-label>
+          <ion-select (ionChange)="modificaDatos()" [(ngModel)]="prueba[1].alimento">
+            <ion-select-option [value]="a" *ngFor="let a of carbohidratos">{{a.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card class="ion-no-margin carboCard">
+        <ion-item lines="none" class="carbo">
+          <ion-label>Cantidad</ion-label>
+          <ion-select (ionChange)="modificaDatos()" [(ngModel)]="prueba[1].cantidad">
+            <ion-select-option *ngFor="let c of [0,50,100,150,200,250,300]">{{c}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="contador >= 2" class="animate__animated animate__fadeInRight ion-justify-content-center">
+      <ion-col size="6">
+        <ion-card class="ion-no-margin verduCard">
+        <ion-item lines="none" class="verdu">
+          <ion-label class="ion-no-margin">Verduras</ion-label>
+          <ion-select class="ion-no-margin" (ionChange)="modificaDatos()" [(ngModel)]="prueba[2].alimento">
+            <ion-select-option [value]="a" *ngFor="let a of verduras">{{a.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card class="ion-no-margin verduCard">
+        <ion-item lines="none" class="verdu">
+          <ion-label class="ion-no-margin">Cantidad</ion-label>
+          <ion-select class="ion-no-margin" (ionChange)="modificaDatos()" [(ngModel)]="prueba[2].cantidad">
+            <ion-select-option *ngFor="let c of [0,50,100,150,200]">{{c}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="contador>=3" class="animate__animated animate__fadeInRight ion-justify-content-center" style="margin-bottom: 5%">
+      <ion-col size="6">
+        <ion-card class="ion-no-margin extraCard">
+        <ion-item lines="none" class="cartaextra">
+          <ion-label>Extras, 3 Max.</ion-label>
+          <ion-select (ionChange)="modificaDatos()" multiple="true" [(ngModel)]="extrasTupper">
+            <ion-select-option [value]="a" *ngFor="let a of extras">{{a.nombre}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="contador < 3" class="ion-text-center" style="margin-bottom: 5%">
+    <ion-button fill="outline" size="small" class="siguiente"  strong="true" (click)="contador = contador+1">SIGUIENTE</ion-button>
+  </div>
+  <div *ngIf="tupperCorrecto" class="ion-margin-top">
+    <ion-row class="ion-margin">
+      <ion-col size="6">
+        <div>
+          <ion-list lines="full">
+            <ion-list-header><ion-label>Información Nutricional</ion-label></ion-list-header>
+            <ion-item class="ion-margin-top">
+              <ion-text>Proteínas:</ion-text>
+              <ion-note slot="end">{{nutricional.proteinas}}</ion-note>
+            </ion-item>
+            <ion-item>
+            <ion-text>Carbohidratos:</ion-text>
+            <ion-note slot="end">{{nutricional.carbohidratos}}</ion-note>
+          </ion-item>
+            <ion-item>
+              <ion-text>Grasas:</ion-text>
+              <ion-note slot="end">{{nutricional.grasas}}</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-text>Calorias:</ion-text>
+              <ion-note slot="end">{{nutricional.calorias}}</ion-note>
+            </ion-item>
+            <ion-item lines="none" class="ion-margin-top">
+              <b>Precio:</b>
+              <b slot="end">{{precioTupper | currency:'EUR'}}</b>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <ion-list-header><ion-label>Tu Tupper:</ion-label></ion-list-header>
+        <div class="ion-margin-top">
+        <ion-item class="ion-text-wrap ion-margin-end" *ngFor="let al of alimentosTupper">
+          <ion-avatar slot="start"><img [src]="al.alimento.foto" alt=""></ion-avatar>
+          <ion-label>{{al.alimento.nombre}} {{al.cantidad}} Gr</ion-label>
+        </ion-item>
+          <ion-row class="ion-justify-content-center ion-margin-top">
+            <ion-col size="2" *ngFor="let e of extrasTupper">
+              <ion-avatar class="avatar"><img [src]="e.foto" alt=""></ion-avatar>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="tupperCorrecto" style="margin-bottom: 3%">
+    <ion-row class="ion-justify-content-center ion-margin">
+      <ion-col size="4">
+        <ion-button class="exitoo" expand="block" strong="true" fill="outline" (click)="creaTupper()">
+          Añadir al plan
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+</ion-content>

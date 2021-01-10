@@ -1,0 +1,4 @@
+<div>
+  <ion-icon class="estrella" name="star" *ngFor="let estrella of [1,2,3,4,5]"
+      (click)="rate(estrella)" [ngStyle]="{'color':getColor(estrella)}"></ion-icon>
+</div>

@@ -1,0 +1,13 @@
+<ion-card>
+  <ion-card-content>
+  <ion-card-title>
+    {{codigo.codigo}}
+  </ion-card-title>
+    <ion-card-subtitle class=" ion-margin-top ion-margin-bottom">Descuento del {{codigo.descuento}}%</ion-card-subtitle>
+    <h6 class="ion-margin-bottom ">Código de descuento con el que obtendrás un descuento del {{codigo.descuento}}% en tu compra. Canjealo en el final del proceso de compra en la sección de códigos promocionales</h6>
+    <ion-row class="ion-justify-content-end ion-margin-top">
+      <b *ngIf="codigo.preciominimo > 0">Valido en compras superiores a {{codigo.preciominimo}}€</b>
+      <b *ngIf="codigo.validez != null"> Disponible hasta el dia: {{codigo.validez.toLocaleDateString()}}</b>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

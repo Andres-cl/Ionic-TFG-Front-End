@@ -1,0 +1,47 @@
+
+.carrito {
+  //color: #bc9b59;
+  font-weight: 600;
+  font-size: 1em;
+}
+.left{
+  margin-right: 15px;
+}
+.input{
+  width: 30px;
+  height: 20px;
+
+}
+ion-fab-button {
+  height: 70px;
+  width: 70px;
+}
+
+.cart-icon {
+  font-size: 40px;
+}
+
+.cart-length {
+  color: var(--ion-color-dark);
+  //color: var(--ion-color-warning);
+  position: absolute;
+  top: 8.5px;
+  right: 13px;
+  font-weight: 600;
+  font-size: 0.75em;
+  min-width: 25px;
+  z-index: 10;
+}
+.badge{
+  position: absolute;
+  top: 1px;
+  left: 23px;
+  //opacity: 0.9;
+  font-size: 13px;
+  --background: #bc9b59;
+  --color: white;
+}
+ion-avatar{
+  width: 45px;
+  height: 45px;
+}

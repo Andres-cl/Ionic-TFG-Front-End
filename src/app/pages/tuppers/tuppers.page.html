@@ -1,0 +1,272 @@
+<app-header titulo="tuppers"></app-header>
+
+<ion-content class="ion-padding">
+    <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content pullingIcon="lines"
+                               refreshing-spinner="lines"
+        ></ion-refresher-content>
+    </ion-refresher>
+    <form (ngSubmit)="AnyadePedido()">
+        <h4 class="ion-text-center">
+            <strong>Selecciona valores y cantidad:</strong>
+        </h4>
+        <ion-item lines="full">
+            <ion-label>¿Cuántos tuppers?</ion-label>
+            <ion-select name="raciones" (ionChange)="modificaPrecio()" [(ngModel)]="numraciones">
+                <ion-select-option *ngFor="let racion of [1,2,3,4,5,6,7,8,9,10]">{{racion}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-text *ngIf="!validaRaciones" color="danger"><small>* Tienes que indicar algún número de tupper</small>
+        </ion-text>
+
+        <ion-card style="background-color: #f9ccc8" class="ion-text-center fondo animate__animated animate__zoomIn" [ngStyle]="{'animation-delay':getDelay(0)+'s'}">
+            <ion-header (click)="reseteaCard(0)">
+                <ion-button color="none" class=" reset" slot="icon-only">
+                    <ion-icon color="danger" size="large" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-header>
+            <ion-card-title><h3 style="text-decoration: underline">Proteínas</h3></ion-card-title>
+            <ion-card-content>
+
+                <ion-slides [options]="slideOpts">
+                    <ion-slide class="ion-justify-content-center" *ngFor="let prote of proteinas">
+                        <ion-row class="ion-justify-content-center">
+                            <ion-card style="width: 180px; height: 120px"
+                                      (click)="alimentosBase[0].alimento = prote">
+                                <img class="imagenes" [src]="prote.foto" alt="">
+                            </ion-card>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-between">
+                            <ion-col>
+                                <b class="ion-text-capitalize">{{prote.nombre}}</b>
+                            </ion-col>
+                            <ion-col>
+                                <b>{{prote.precio | currency: 'EUR'}}</b>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                </ion-slides>
+
+                <ion-card class="ion-no-margin proteCard cartita">
+                    <ion-item lines="none" class="prote">
+                        <ion-label>Tipo</ion-label>
+                        <ion-select (ionChange)="modificaPrecio()" name="tipoproteina"
+                                    [(ngModel)]="alimentosBase[0].alimento">
+                            <ion-select-option [value]="proteina"
+                                               *ngFor="let proteina of proteinas">{{proteina.nombre}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+                <ion-card class="ion-no-margin proteCard" style="margin-top: 5px">
+                    <ion-item lines="none" class="prote">
+                        <ion-label>Cantidad</ion-label>
+                        <ion-select (ionChange)="modificaPrecio()" name="cantproteina"
+                                    [(ngModel)]="alimentosBase[0].cantidad">
+                            <ion-select-option
+                                    *ngFor="let cantidad of ['0','50','100','150','200','250']">{{cantidad}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+            </ion-card-content>
+        </ion-card>
+        <ion-card style="background-color: #efe8a7" class="ion-text-center fondo fondo animate__animated animate__zoomIn" [ngStyle]="{'animation-delay':getDelay(1)+'s'}">
+            <ion-header (click)="reseteaCard(1)">
+                <ion-button color="none" class=" reset" slot="icon-only">
+                    <ion-icon color="danger" size="large" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-header>
+            <ion-card-title><h3 style="text-decoration: underline">Hidratos</h3></ion-card-title>
+            <ion-card-content class="ion-padding">
+                <ion-slides [options]="slideOpts">
+                    <ion-slide *ngFor="let hidrato of hidratos">
+                        <ion-row class="ion-justify-content-center">
+                            <ion-card style="width: 180px; height: 120px"
+                                      (click)="alimentosBase[1].alimento = hidrato">
+                                <ion-img class="imagenes" [src]="hidrato.foto" alt=""></ion-img>
+                            </ion-card>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-between">
+                            <ion-col>
+                                <b class="ion-text-capitalize"> {{hidrato.nombre}}</b>
+                            </ion-col>
+                            <ion-col>
+                                <b>{{hidrato.precio | currency: 'EUR'}}</b>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                </ion-slides>
+                <ion-card class="ion-no-margin carboCard" >
+                    <ion-item lines="none" class="carbo">
+                        <ion-label>Tipo</ion-label>
+                        <ion-select (ionChange)="modificaPrecio()" name="tipocarbo"
+                                    [(ngModel)]="alimentosBase[1].alimento">
+                            <ion-select-option
+                                    [value]="hidrato"
+                                    *ngFor="let hidrato of hidratos">{{hidrato.nombre}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+                <ion-card class="carboCard ion-no-margin" style="margin-top: 5px">
+                    <ion-item lines="none" class="carbo">
+                        <ion-label>Cantidad</ion-label>
+                        <ion-select (ionChange)="modificaPrecio()" name="cantcarbo"
+                                    [(ngModel)]="alimentosBase[1].cantidad">
+                            <ion-select-option
+                                    *ngFor="let cantidad of ['0','50','100','150','200','250','300']">{{cantidad}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+            </ion-card-content>
+        </ion-card>
+        <ion-card style="background-color: #c3e6ca" class="ion-text-center fondo fondo animate__animated animate__zoomIn" [ngStyle]="{'animation-delay':getDelay(2)+'s'}">
+            <ion-header (click)="reseteaCard(2)">
+                <ion-button color="none" class=" reset" slot="icon-only">
+                    <ion-icon color="danger" size="large" name="trash-outline"></ion-icon>
+                </ion-button>
+            </ion-header>
+            <ion-card-title><h3 style="text-decoration: underline">Verduras</h3></ion-card-title>
+            <ion-card-content class="ion-padding">
+                <ion-slides [options]="slideOpts">
+                    <ion-slide *ngFor="let verdura of verduras">
+                        <ion-row class="ion-justify-content-center">
+                            <ion-card style="width: 180px; height: 120px"
+                                      (click)="alimentosBase[2].alimento = verdura">
+                                <img class="imagenes" [src]="verdura.foto" alt="">
+                            </ion-card>
+                        </ion-row>
+                        <ion-row class="ion-justify-content-between">
+                            <ion-col>
+                                <b class="ion-text-capitalize">{{verdura.nombre}}</b>
+                            </ion-col>
+                            <ion-col>
+                                <b>{{verdura.precio | currency: 'EUR'}}</b>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                </ion-slides>
+                <ion-card class="verduCard ion-no-margin" style="margin-top: 5px">
+                    <ion-item lines="none" class="verdu">
+                        <ion-label>Tipo</ion-label>
+                        <ion-select (ionChange)="modificaPrecio()" name="tipoverdura"
+                                    [(ngModel)]="alimentosBase[2].alimento">
+                            <ion-select-option
+                                    [value]="verdura"
+                                    *ngFor="let verdura of verduras">{{verdura.nombre}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-card>
+                    <ion-card class="verduCard ion-no-margin" style="margin-top: 5px">
+                        <ion-item class="verdu" lines="none">
+                            <ion-label>Cantidad</ion-label>
+                            <ion-select (ionChange)="modificaPrecio()" name="cantidadver"
+                                        [(ngModel)]="alimentosBase[2].cantidad">
+                                <ion-select-option
+                                        *ngFor="let cantidad of ['0','50','100','150','200']">{{cantidad}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-card>
+            </ion-card-content>
+        </ion-card>
+        <ion-card id="cartaextra" class="ion-text-center fondo animate__animated animate__zoomIn card-item" *ngIf="!extra">
+            <ion-card-content>
+                <ion-text><b>¿Quieres algún extra en tu tupper?</b></ion-text>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size="4">
+                        <ion-button class="extra" (click)="habilitaExtras()" size="small" expand="block">Si, quiero!
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+        <ion-card  id="cartaextra2" class="ion-text-center animate__animated animate__zoomIn card-item" *ngIf="extra">
+            <ion-card-header><h3 style="text-decoration: underline">Extras</h3></ion-card-header>
+            <ion-card-content>
+                <ion-note>Máximo 3 extras.</ion-note>
+                <ion-card class="extraCard ion-no-margin" style="margin-top: 5px">
+                    <ion-item lines="none" (click)="abreExtras()" class="ion-text-wrap cartaextra">
+                        <ion-input placeholder="Selecciona Extra:" readonly="true"></ion-input>
+                        <ion-icon slot="end" size="small" name="caret-down-outline"></ion-icon>
+                    </ion-item>
+                </ion-card>
+                <ion-row class="ion-justify-content-center ion-margin-top">
+                    <ion-col size="4">
+                        <ion-button class="extra" (click)="cancelAddAlimentosTupper()" size="small" expand="block">
+                            Cancelar
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+            <div class="ion-margin-top ion-margin-bottom">
+                <ion-list lines="none">
+                    <ion-item-sliding *ngFor="let a of extraTupper">
+                        <ion-item lines="none" class="ion-text-wrap">
+                            <ion-avatar slot="start">
+                                <ion-img [src]="a.foto"></ion-img>
+                            </ion-avatar>
+                            <ion-label>{{a.nombre}} </ion-label>
+                            <ion-label class="ion-text-end" slot="end">{{a.precio | currency:'EUR'}}</ion-label>
+                        </ion-item>
+                        <ion-item-options side="end">
+                            <ion-item-option color="danger" (click)="eliminaAlimentoExtra(a)">
+                                <ion-icon slot="icon-only" name="trash"></ion-icon>
+                            </ion-item-option>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </div>
+        </ion-card>
+        <ion-text *ngIf="alimentosTupper.length<=0" color="danger"><small>Los tuppers
+            deben llevar al menos 1 alimento</small>
+        </ion-text>
+        <div class="ion-margin-top ion-text-center">
+            <ion-chip outline color="companytwo">
+                <ion-icon name="card-outline"></ion-icon>
+                <h6 class="ion-margin">Total: {{precioTupper | currency:'EUR'}}</h6>
+            </ion-chip>
+        </div>
+        <div class="ion-padding">
+            <ion-button class="exito" size="medium" expand="block" fill="outline" color="companythree" type="submit">
+                Añadir al carrito
+            </ion-button>
+        </div>
+    </form>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="warning" class="fabgrande">
+            <ion-icon class="icono" name="cals"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="start">
+            <ion-fab-button class="fondo2">
+                <b class="fab1">
+                    {{infoNutricional.calorias}}
+                </b>
+                <b class="fab2">
+                    Kclas
+                </b>
+            </ion-fab-button>
+            <ion-fab-button class="fondoo">
+                <b class="fab1">
+                    {{infoNutricional.carbohidratos}}
+                </b>
+                <b class="fab2">
+                    Hc
+                </b>
+            </ion-fab-button>
+            <ion-fab-button class="fondoo">
+                <b class="fab1">
+                    {{infoNutricional.grasas}}
+                </b>
+                <b class="fab2">
+                    Gr
+                </b>
+            </ion-fab-button>
+            <ion-fab-button class="fondoo">
+                <b class="fab1">
+                    {{infoNutricional.proteinas}}
+                </b>
+                <b class="fab2">
+                    Pr
+                </b>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

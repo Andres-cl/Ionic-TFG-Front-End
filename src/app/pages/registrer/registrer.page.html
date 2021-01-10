@@ -1,0 +1,47 @@
+<app-header titulo="Registrarse"></app-header>
+
+<ion-content>
+  <form #formulario="ngForm"  (ngSubmit)="registrarse(formulario)" class="ion-padding">
+    <ion-list lines="full">
+    <ion-item>
+    <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true" required type="text" name="nombre"  [(ngModel)]="user.nombre"></ion-input>
+  </ion-item>
+    <ion-item >
+      <ion-label position="stacked">Apellidos <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input clearInput="true" mode="md" type="text" name="apellidos"  [(ngModel)]="user.apellidos" required></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label position="stacked">Teléfono <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true" type="text" maxlength="9" name="telefono"  [(ngModel)]="user.telefono" required></ion-input>
+  </ion-item>
+    <ion-item>
+    <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input clearInput="true"  type="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" [(ngModel)]="user.correo" required></ion-input>
+  </ion-item>
+    <ion-item>
+      <ion-text style="margin-top: 7px" (click)="alertaInfoContrasenya()"><ion-label  position="stacked">Contraseña<ion-text color="danger"> * <ion-icon color="dark" (click)="alertaInfoContrasenya()" name="information-circle"></ion-icon></ion-text></ion-label></ion-text>
+      <ion-input clearInput="true" type="password" name="contraseña" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" [(ngModel)]="user.contrasenya" required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Repita Contraseña <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input clearInput="true" type="password" name="contraseña2"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" [(ngModel)]="contrasenya2" required></ion-input>
+    </ion-item>
+    <ion-item lines="none" style="margin-top: 10px">
+      <re-captcha  (resolved)="captchaResuelto()" siteKey="6Lc2Vd4UAAAAAHWf4WEUFyRnaIGdOILfPcmm3S-S"></re-captcha>
+    </ion-item>
+      <ion-item lines="none" >
+        <ion-label (click)="openPrivacidad()" style="font-style: oblique "><small><strong>Aceptas la política de privacidad</strong></small></ion-label>
+        <input style="margin: 10px" slot="start" name="politica" [(ngModel)]="privacidadok"
+               type="checkbox">
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="font-style: oblique "><small><strong>Consientes el tratamiento de tus datos</strong></small></ion-label>
+        <input style="margin: 10px" slot="start" name="datos" [(ngModel)]="tratamientosDatos" required type="checkbox">
+      </ion-item>
+    </ion-list>
+    <ion-button class="ion-padding" strong="true" size="small" expand="block"  color="dark" type="submit" [disabled]="formulario.invalid || !captchaok || !privacidadok || !tratamientosDatos">
+        Registrarse
+    </ion-button>
+  </form>
+</ion-content>

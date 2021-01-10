@@ -1,0 +1,17 @@
+.bordeinput{
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+}
+ion-input{
+  width: 100px;
+  padding: 5px;
+  --padding-start: 5px;
+  --padding-end: 5px;
+}
+.exito{
+  background: #bad2b6;
+border-radius: 10px;
+}.cancelado{
+   background: #ffdfdb;
+   border-radius: 10px;
+ }

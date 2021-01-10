@@ -1,0 +1,20 @@
+<ion-content>
+    <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+        <ion-refresher-content pulling-icon="lines"></ion-refresher-content>
+    </ion-refresher>
+    <ion-card [ngStyle]="{'background-color' : getColor(pregunta)}" (click)="pregunta.activa = !pregunta.activa"
+              *ngFor="let pregunta of preguntas" class="ion-text-center animate__animated animate__bounceInLeft">
+
+        <ion-card-header class="ion-tappable">
+            <h3 style="text-decoration: underline"><strong>{{pregunta.pregunta}}</strong></h3>
+            <ion-icon *ngIf="!pregunta.activa" class="flecha" size="large" name="arrow-down-circle-outline"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="ion-margin-top" *ngIf="pregunta.activa">
+                <ion-text>
+                    {{pregunta.respuesta}}
+                </ion-text>
+            </div>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

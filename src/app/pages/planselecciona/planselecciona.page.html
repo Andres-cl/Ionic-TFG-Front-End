@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Selecciona Plato</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="Cancelar()" color="light">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content pullingIcon="lines"
+                           refreshing-spinner="lines"
+    ></ion-refresher-content>
+  </ion-refresher>
+<div class="ion-margin-top">
+  <h3 class="ion-text-center">Selecciona un plato para ver su información</h3>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="9">
+      <ion-card class="textblack">
+      <ion-item lines="none">
+        <ion-label color="dark">Platos</ion-label>
+        <ion-select name="plato" [(ngModel)]="platoSeleccionado">
+          <ion-select-option [value]="plato" *ngFor="let plato of platos; let i = index">{{i+1}}. {{plato.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-margin">
+    <ion-col  *ngIf="platoSeleccionado!= null" class="animate__animated animate__fadeInLeft" size="5.5">
+      <div style="margin-top: 25px">
+        <ion-list class="ion-margin-top" lines="full">
+          <ion-list-header class="ion-margin-bottom">Información Nutricional</ion-list-header>
+          <ion-item>
+            <ion-label>Proteínas: </ion-label>
+            <ion-note slot="end">{{platoSeleccionado.proteinas}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Carbohidratos: </ion-label>
+            <ion-note slot="end">{{platoSeleccionado.hidratos}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Grasas: </ion-label>
+            <ion-note slot="end">{{platoSeleccionado.grasas}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Calorias: </ion-label>
+            <ion-note slot="end">{{platoSeleccionado.calorias}}</ion-note>
+          </ion-item>
+        </ion-list>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-label><b>Precio: </b></ion-label>
+          <b slot="end">{{platoSeleccionado.precio | currency:'EUR'}}</b>
+        </ion-item>
+      </div>
+      <div>
+        <ion-row class="ion-justify-content-center ion-margin-top">
+          <ion-col size="8">
+            <ion-button (click)="anyadePlato()"  expand="block" class="exitoo" fill="outline" >Añadir</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+    <ion-col class="animate__animated animate__fadeInRight" *ngIf="platoSeleccionado != null" size="6.5">
+      <ion-card class="ion-text-center">
+        <ion-card-header class="ion-no-padding">
+          <ion-text color="dark"><h3><b>{{platoSeleccionado.nombre}}</b></h3></ion-text>
+        </ion-card-header>
+        <ion-img [src]="platoSeleccionado.foto"></ion-img>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <div class="ion-text-center" style="margin-bottom: 10%">
+      <ion-text class="ion-margin">
+    ¿No te convence ningún plato? Personalizate un tupper:
+      </ion-text><br>
+      <ion-text color="primary" style="text-decoration: underline" (click)="abreTupperPage()">Click Aquí</ion-text>
+  </div>
+</div>
+</ion-content>

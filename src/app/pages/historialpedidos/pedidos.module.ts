@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { PedidosPageRoutingModule } from './pedidos-routing.module';
+
+import { PedidosPage } from './pedidos.page';
+import {ComponentsModule} from "../../components/components.module";
+import {RevisionPlanSemanalPageModule} from "../revision-plan-semanal/revision-plan-semanal.module";
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PedidosPageRoutingModule,
+        ComponentsModule,
+        RevisionPlanSemanalPageModule
+    ],
+  declarations: [PedidosPage]
+})
+export class PedidosPageModule {}

@@ -1,0 +1,115 @@
+<app-header titulo="Dieta Personal"></app-header>
+
+
+
+<ion-content>
+    <div *ngIf="!abreform">
+        <ion-card id="cartaplanpersonal" (click)="abreFormulario()" class="ion-text-center fondo">
+            <ion-card-title class="ion-margin-top" style="color: black">Plan personalizado</ion-card-title>
+            <ion-card-content>
+                <ion-text class="raton">Si después de ver los servicios que ofrecemos, ninguno te ha convencido, necesitas que te
+                    asesoremos o quieres algo más individualizado, rellena el siguiente formulario. Una vez rellenado un
+                    nutricionista del equipo ff atenderá tu caso y en base a tus
+                    objetivos elaborará una dieta semanal de tuppers personalizados para tí. Cuando tengamos dicha dieta
+                    nos pondremos en contacto contigo para finalizar con el proceso de compra! <br>
+                </ion-text>
+                <ion-button class="ion-margin-top new">Rellenar Formulario</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <div *ngIf="abreform" class="ion-margin">
+        <form #form="ngForm" (ngSubmit)="nuevoPlanSemanal(form)">
+
+            <ion-item lines="none" class="item-borde margen">
+                <ion-input type="number" placeholder="EDAD" name="edad" [(ngModel)]="planSemanal.edad"
+                           clearInput="true"></ion-input>
+            </ion-item>
+
+            <small *ngIf="(planSemanal.edad > 0 && planSemanal.edad < 10) || planSemanal.edad > 85" style="color: red">La
+                edad debe estar comprendida entre 10 y 85 años*</small>
+
+            <ion-item lines="none" class="item-borde margen">
+                <ion-input type="number" name="talla" [(ngModel)]="planSemanal.talla" placeholder="TALLA (cm)"
+                           clearInput="true"></ion-input>
+            </ion-item>
+
+            <small *ngIf="(planSemanal.talla > 0 && planSemanal.talla < 100) || planSemanal.talla > 230"
+                   style="color: red">La talla debe estar escrita en centimetros y entre 100 y 230 CM*</small>
+            <ion-item lines="none" class="item-borde margen">
+                <ion-input type="number" placeholder="PESO" name="peso" [(ngModel)]="planSemanal.peso"
+                           clearInput="true"></ion-input>
+            </ion-item>
+            <small *ngIf="(planSemanal.peso> 0 && planSemanal.peso < 30) || planSemanal.peso > 300" style="color: red">El
+                peso debe estar comprendido entre 30 y 300 KG*</small>
+
+            <ion-item lines="none" class="item-borde margen">
+                <ion-input (click)="showDiasActividad()" readonly type="number" name="dias"
+                           [(ngModel)]="planSemanal.diasActividad" placeholder="DIAS DE ACTIVIDAD"></ion-input>
+                <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+            </ion-item>
+
+            <ion-row class="margen">
+                <ion-col size="12" class="ion-no-padding">
+                    <ion-item lines="none" class="item-borde darkiconos">
+                        <ion-input  (click)="abreAlimentosNoDeseados('alimentos')" readonly="true"
+                                   placeholder="ALIMENTOS NO DESEADOS" name="nodeseados" [(ngModel)]="alsnoDeseados"
+                                   clearInput="true"></ion-input>
+                        <ion-icon slot="end" name="chevron-down-outline"></ion-icon>
+                    </ion-item>
+                </ion-col>
+                <div class="pos" *ngIf="listaALimentos.length > 0">
+                    <ion-avatar style="margin: 5px 1px 5px 1px" *ngFor="let p of listaALimentos"><img [src]="p.foto"
+                                                                                                      alt="">
+                    </ion-avatar>
+                </div>
+            </ion-row>
+            <ion-row class="margen">
+                <ion-col size="12" class="ion-no-padding">
+                    <ion-item lines="none" class="item-borde box">
+                        <ion-input (click)="abreAlimentosNoDeseados('platos')" readonly="true"
+                                   placeholder="PLATOS NO DESEADOS" name="platosnodeseados"
+                                   [(ngModel)]="platosnoDeseados" clearInput="true"></ion-input>
+                        <ion-icon class="darkiconos" slot="end" name="chevron-down-outline"></ion-icon>
+                    </ion-item>
+                </ion-col>
+                <div class="pos" *ngIf="listaPlatos.length > 0">
+                    <ion-avatar style="margin: 5px 1px 5px 1px" *ngFor="let p of listaPlatos"><img [src]="p.foto">
+                    </ion-avatar>
+                </div>
+            </ion-row>
+            <ion-item lines="none" class="item-borde margen">
+                <ion-textarea rows="7" spellcheck="true" maxlength="255" type="text" name="descripcion"
+                              [(ngModel)]="planSemanal.descripcion" placeholder="BREVE DESCRIPCIÓN DE TUS OBJETIVOS"
+                ></ion-textarea>
+            </ion-item>
+            <div class="group margen box">
+                <ion-radio-group  name="sexo" [(ngModel)]="planSemanal.sexo">
+                    <ion-item lines="none" class="item-group">
+                        <ion-label>
+                            <ion-icon name="male"></ion-icon>
+                            Hombre
+                        </ion-label>
+                        <ion-radio color="companytwo" value="hombre"></ion-radio>
+                    </ion-item>
+                    <ion-item lines="none" class="item-group">
+                        <ion-label>
+                            <ion-icon name="female"></ion-icon>
+                            Mujer
+                        </ion-label>
+                        <ion-radio color="companytwo" value="mujer"></ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </div>
+            <small *ngIf="!validado" style="color: red">Faltan campos por rellenar*</small>
+            <ion-row class="ion-justify-content-center ion-margin-top">
+                <ion-col size="6">
+                    <ion-button id="miid" type="submit" class="new orgia" expand="block" strong="true">ENVIAR</ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+        <div class="ion-margin-vertical">
+            <small slot="start" style="color: grey">*Los planes personalizados llevan un recargo de 10€ por los
+                servicios del nutricionista</small>
+        </div>
+    </div>
+</ion-content>

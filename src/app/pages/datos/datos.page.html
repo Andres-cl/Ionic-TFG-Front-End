@@ -1,0 +1,37 @@
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="dorefresh($event)" slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+    <ion-refresher-content pulling-icon="lines"></ion-refresher-content>
+  </ion-refresher>
+
+
+    <h4 class="ion-text-center ion-margin-vertical" style="text-decoration: underline">Información del Usuario</h4>
+
+<ion-list lines="full" class="ion-margin-top ion-padding">
+  <ion-item>
+  <ion-label>Nombre:</ion-label>
+  <ion-note slot="end">{{user.nombre}}</ion-note>
+  </ion-item>
+  <ion-item class="fondo">
+    <ion-label>Apellidos:</ion-label>
+    <ion-note slot="end">{{user.apellidos}}</ion-note>
+  </ion-item>
+  <ion-item >
+    <ion-label>Telefono:</ion-label>
+    <ion-note slot="end">{{user.telefono}}</ion-note>
+  </ion-item>
+  <ion-item class="fondo">
+    <ion-label>Correo:</ion-label>
+    <ion-note slot="end">{{user.correo}}</ion-note>
+  </ion-item>
+  <ion-item *ngIf="user.promocionalid != null">
+    <ion-label>Código Promocional:</ion-label>
+    <ion-text (click)="popInfoCodigo($event)" slot="end" color="primary" style="text-decoration: underline">{{codigo}}</ion-text>
+  </ion-item>
+</ion-list>
+  <ion-row class="ion-justify-content-center">
+  <ion-button class="ion-margin-top center new" size="medium" (click)="abrirModal()">Editar Datos</ion-button>
+    </ion-row>
+</ion-content>

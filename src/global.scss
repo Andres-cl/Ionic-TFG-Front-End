@@ -24,3 +24,74 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import '~animate.css/animate.min.css';
+
+.pop-over-style .popover-content {
+  --min-width: 310px !important;
+  padding: 10px;
+  --background: #cef3da;
+}
+.pop-over-styletwo .popover-content {
+  --min-width: 250px !important;
+  padding: 10px;
+}
+.borde{
+border: solid 1px red;
+}
+.item-borde{
+    --border-width: 1px;
+    --border-color: #0c4e23;
+    --border-radius: 10px;
+    --border-style: solid;
+    --background: #ebf7ed;
+}
+.item .item-content{
+  --background:black;
+}
+.proteCard{
+ border: solid 1px #f36955;
+}
+.prote {
+  --background-activated: #f36955;
+}
+.carboCard{
+  border: solid 1px #d9c82b;
+}
+.carbo{
+  --background-activated: #d9c82b;
+}
+.verduCard{
+  border: solid 1px #57b96b;
+}
+.verdu{
+   --background-activated: #57b96b;
+ }
+.extraCard{
+  border: solid 1px grey;
+}
+.cartaextra{
+  --background-activated: grey;
+}
+
+.mipopover .popover-content{
+  --min-width: 350px !important;
+  padding: 10px;
+}
+.borde{
+  border: 1px solid red;
+}
+.exitoo{
+  --color:#246029;
+  --border-color: #246029;
+  --background: #bad2b6;
+  --border-radius: 10px;
+  --background-activated: #246029;
+}
+.canceladoo{
+  --color: red;
+  --border-color: red;
+  --background: #ffdfdb;
+  --border-radius: 10px;
+  --background-activated: red;
+}
+

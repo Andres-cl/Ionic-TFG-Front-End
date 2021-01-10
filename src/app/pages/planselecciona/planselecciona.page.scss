@@ -1,0 +1,28 @@
+
+.cancelado{
+  background: #ffdfdb;
+  border-radius: 10px;
+}
+ion-card{
+  border:solid 1px #0c4e23;
+  border-radius: 10px;
+  .item{
+    --background: #ebf7ed;
+    --border-radius:10px;
+  }
+}
+.textblack{
+  ion-item{
+    ion-label{
+      color: black;
+    }
+    ion-select{
+      color: black;
+    }
+
+  }
+}
+
+
+
+

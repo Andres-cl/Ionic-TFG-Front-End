@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="primerMenu" color="medium"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize"><strong>{{ titulo }} </strong></ion-title>
+    <ion-buttons slot="start">
+      <ion-avatar (click)="pushInicio()">
+        <ion-img src="/assets/logo.png"></ion-img>
+      </ion-avatar>
+    </ion-buttons>
+    <ion-buttons   slot="end" class="left" (click)="mostrarPop($event)">
+      <ion-icon #cartito id="iconocarrito" name="cart" class="cart-icon"> </ion-icon>
+      <ion-badge *ngIf="globales.productosCarrito > 0" style="position:absolute;" id="badgeproductoscarrito" class="badge" >{{globales.productosCarrito}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

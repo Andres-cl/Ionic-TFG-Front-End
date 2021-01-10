@@ -1,0 +1,37 @@
+.new{
+  //--background: #86cd97;
+  --background: #0c4e23;
+  --background-activated:  #00bb2d;
+}
+.fondo{
+  --background: #cef3da;
+}
+ion-item{
+  &.item-has-focus {
+    --border-color: transparent !important;
+    border-radius:10px;
+    border: 1px solid #793268;
+  }
+}
+.pos{
+  display: contents;
+}
+ion-avatar{
+  width: 40px;
+  height: 40px;
+}
+.margen{
+margin:5px;
+}
+.group{
+  border: solid 1px  #0c4e23;
+  border-radius: 10px;
+  background-color: #ebf7ed;
+}
+.group ion-item{
+  --background: #ebf7ed;
+  --border-radius: 10px;
+}
+ion-icon{
+  color: black;
+}

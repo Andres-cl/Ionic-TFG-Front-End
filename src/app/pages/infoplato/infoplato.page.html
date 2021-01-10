@@ -1,0 +1,51 @@
+<app-header titulo="{{plato.nombre}}"></app-header>
+
+<ion-content class="ion-padding">
+    <ion-card style="background-color: #efefef" class="ion-text-center">
+      <img [src]="plato.foto">
+      <ion-card-title>
+        <h2 class="ion-text-center" style="text-decoration: underline;color: black">Información Nutricional</h2>
+      </ion-card-title>
+      <ion-card-content class="ion-margin-top">
+        <div class="ion-padding">
+      <ion-row style="justify-content: space-between">
+        <h2>Proteinas</h2>
+        <h2>{{plato.proteinas}}</h2>
+      </ion-row >
+        <ion-row style="justify-content: space-between">
+          <h2>Hidratos</h2>
+          <h2>{{plato.hidratos}}</h2>
+        </ion-row>
+        <ion-row style="justify-content: space-between">
+          <h2>Grasas</h2>
+          <h2>{{plato.grasas}}</h2>
+        </ion-row>
+        <ion-row class="ion-padding" style="justify-content: space-between">
+          <h2><strong>Calorias</strong></h2>
+          <h2>{{plato.calorias}}</h2>
+        </ion-row>
+        </div>
+        <div class="ion-margin-top ion-padding">
+        <ion-label class="ion-text-end">Selecciona el nuemro de tuppers</ion-label>
+        <ion-range color="companytwo" style="color: black" min="0" max="10" name="racione" [(ngModel)]="raciones">
+          <ion-icon slot="start" size="small" name="restaurant-outline"></ion-icon>
+          <ion-icon slot="end" name="restaurant-outline"></ion-icon>
+        </ion-range>
+        </div>
+        <ion-text color="danger" *ngIf="raciones <= 0"><small>Tienes que marcar minimo 1 plato</small></ion-text>
+        <ion-text color="companytwo" *ngIf="raciones > 0"><small>Seleccionadas: {{raciones}}</small></ion-text>
+        <div>
+          <ion-row style="justify-content: center" class="ion-margin-top">
+            <ion-button fill="outline" expand="block" class="exito" color="none" (click)="aceptado()">
+              <ion-icon slot="end" name="cart"></ion-icon>
+              Añadir
+            </ion-button>
+            <ion-button  color="danger" fill="outline" class="cancelado" expand="block" (click)="cancelado()">
+              <ion-icon slot="end" name="close-outline"></ion-icon>
+              Cancelar
+            </ion-button>
+          </ion-row>
+        </div>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

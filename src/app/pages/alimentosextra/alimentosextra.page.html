@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Opciones Extra:</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header class="ion-margin-bottom ion-margin-top">
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <h4 class="ion-text-center "><b>Selecciona un máximo de 3 extras:</b></h4>
+        </ion-col>
+      </ion-row>
+    </ion-list-header>
+    <ion-item class="ion-text-wrap" *ngFor="let e of extras; let i = index">
+      <ion-avatar slot="start">
+        <ion-img [src]="e.foto"></ion-img>
+      </ion-avatar>
+      <ion-label>{{e.nombre}}</ion-label>
+      <ion-checkbox slot="end" color="success" [(ngModel)]="checked[i]"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-row class="ion-justify-content-center ion-margin-top" style="margin-bottom: 15%">
+    <ion-col size="4">
+      <ion-button (click)="aceptar()" expand="block" fill="outline" color="company" class="exito">Aceptar</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button (click)="cancelar()" expand="block" fill="outline" color="danger" class="cancelado">Cancelar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

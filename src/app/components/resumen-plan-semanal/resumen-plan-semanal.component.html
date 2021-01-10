@@ -1,0 +1,27 @@
+<ion-grid class="ion-margin-vertical" fixed="">
+  <ion-row>
+    <ion-col class="ion-text-center" size="2.4" *ngFor="let i of [1,2,3,4,5]">
+      <ion-text>{{getDia(i)}}</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row  *ngFor="let r of [0,1,2]">
+    <ion-col size="2.4" class="gridColor" *ngFor="let c of [0,1,2,3,4]">
+      <div *ngIf="imagenesPlan[getIndex(r,c)] === undefined" class="ion-text-center">
+        <ion-card class="ion-no-margin" (click)="muestraInfo(getIndex(r,c))">
+          <small class="posciona2 ion-text-center">{{getComida(r)}}</small>
+        </ion-card>
+      </div>
+      <div *ngIf="imagenesPlan[getIndex(r,c)] != undefined" class="ion-text-center">
+          <ion-card class="ion-no-margin">
+            <img class="ion-no-margin" (click)="muestraInfo(getIndex(r,c))" [src]="imagenesPlan[getIndex(r,c)]" alt=""/>
+          </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col (click)="popNutricionales(i+1)" class="ion-text-center" size="2.4" *ngFor="let i of [0,1,2,3,4]">
+      <ion-note *ngIf="nutricionales[i].calorias != undefined">{{nutricionales[i].calorias}}</ion-note><br>
+      <ion-note style="text-decoration: underline">Kcals</ion-note>
+    </ion-col>
+  </ion-row>
+</ion-grid>

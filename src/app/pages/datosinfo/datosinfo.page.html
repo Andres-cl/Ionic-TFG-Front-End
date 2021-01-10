@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Datos Personales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <form class="ion-padding">
+    <ion-list lines="full">
+      <ion-item>
+      <ion-label position="stacked">Nombre <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input clearInput="true"  type="text" name="nombre" placeholder="{{nombre}}" [(ngModel)]="user.nombre"></ion-input>
+        <small *ngIf="user.nombre == ''" style="color: red">Campo Obligatorio</small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Apellidos <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input clearInput="true" type="text" name="apellidos" placeholder="{{apellidos}}"  [(ngModel)]="user.apellidos"></ion-input>
+        <small *ngIf="user.apellidos == ''" style="color: red">Campo obligatorio</small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Teléfono <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input clearInput="true" type="text" max="9" name="telefono" placeholder="{{telefono}}"  [(ngModel)]="user.telefono"></ion-input>
+        <small *ngIf="user.telefono == ''" style="color: red">Campo obligatorio </small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input clearInput="true" type="text" name="correo" placeholder="{{mail}}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  [(ngModel)]="user.correo"></ion-input>
+        <small *ngIf="user.correo == ''" style="color: red">Campo obligatorio </small>
+      </ion-item>
+    </ion-list>
+    </form>
+  </div>
+  <div>
+    <ion-row style="justify-content: center" class="ion-margin-top">
+      <ion-button  fill="outline" expand="block" class="exitoo"  (click)="guardar()">
+        Guardar
+      </ion-button>
+      <ion-button  fill="outline" class="canceladoo" expand="block" (click)="cancelado()">
+        Cancelar
+      </ion-button>
+    </ion-row>
+  </div>
+</ion-content>

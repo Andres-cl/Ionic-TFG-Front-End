@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-capitalize">{{info.tipo}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div *ngIf="info.tipo === 'tupper'" class="ion-margin">
+  <div class="ion-margin-top">
+    <ion-row class="ion-margin">
+      <ion-col size="6" class="animate__animated animate__fadeInLeft">
+        <div>
+          <ion-list lines="full">
+            <ion-list-header lines="none"><ion-label>Información Nutricional</ion-label></ion-list-header>
+            <ion-item class="ion-margin-top">
+              <ion-text>Proteinas:</ion-text>
+              <ion-note slot="end">{{nutricionales.proteinas}}</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-text>Carbohidratos:</ion-text>
+              <ion-note slot="end">{{nutricionales.carbohidratos}}</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-text>Grasas:</ion-text>
+              <ion-note slot="end">{{nutricionales.grasas}}</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-text>Calorias:</ion-text>
+              <ion-note slot="end">{{nutricionales.calorias}}</ion-note>
+            </ion-item>
+            <ion-item lines="none" class="ion-margin-top">
+              <b>Precio:</b>
+              <b slot="end">{{precioTupper | currency:'EUR'}}</b>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="animate__animated animate__fadeInRight">
+        <ion-list-header><ion-label>Tu Tupper:</ion-label></ion-list-header>
+        <div class="ion-margin-top">
+          <ion-item class="ion-text-wrap ion-margin-end" *ngFor="let al of alimentos">
+            <ion-avatar slot="start"><img [src]="al.alimento.foto" alt=""></ion-avatar>
+            <ion-label>{{al.alimento.nombre}} {{al.cantidad}} Gr</ion-label>
+          </ion-item>
+          <ion-row class="ion-justify-content-center ion-margin-top">
+            <ion-col size="2" *ngFor="let e of extras">
+              <ion-avatar class="avatar"><img [src]="e.foto" alt=""></ion-avatar>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div style="margin-bottom: 3%">
+    <ion-row class="ion-justify-content-center ion-margin">
+      <ion-col size="4">
+        <ion-button expand="block" fill="outline" strong="true" color="danger" (click)="cancelar()">
+          Volver
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+  <div *ngIf="info.tipo === 'plato'" class="ion-margin">
+    <ion-row>
+    <ion-col  *ngIf="plato!= null" class="animate__animated animate__fadeInLeft" size="5.5">
+      <div style="margin-top: 25px">
+        <ion-list class="ion-margin-top" lines="full">
+          <ion-list-header class="ion-margin-bottom">Información Nutricional</ion-list-header>
+          <ion-item>
+            <ion-label>Proteinas: </ion-label>
+            <ion-note slot="end">{{plato.proteinas}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Carbohidratos: </ion-label>
+            <ion-note slot="end">{{plato.hidratos}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Grasas: </ion-label>
+            <ion-note slot="end">{{plato.grasas}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Calorias: </ion-label>
+            <ion-note slot="end">{{plato.calorias}}</ion-note>
+          </ion-item>
+        </ion-list>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-label><b>Precio: </b></ion-label>
+          <b slot="end">{{plato.precio | currency:'EUR'}}</b>
+        </ion-item>
+      </div>
+      <div>
+        <ion-row class="ion-justify-content-center ion-margin-top">
+          <ion-col size="6">
+            <ion-button (click)="cancelar()"  expand="block" fill="outline" color="danger">Volver</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+    <ion-col class="animate__animated animate__fadeInRight" *ngIf="plato != null" size="6.5">
+      <ion-card class="ion-text-center">
+        <ion-card-header class="ion-no-padding">
+          <ion-text color="dark"><h3><b>{{plato.nombre}}</b></h3></ion-text>
+        </ion-card-header>
+        <ion-img [src]="plato.foto"></ion-img>
+      </ion-card>
+    </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

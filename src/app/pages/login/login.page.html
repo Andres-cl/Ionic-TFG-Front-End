@@ -1,0 +1,30 @@
+
+<app-header titulo="Login"></app-header>
+
+<ion-content CLASS="ion-padding">
+  <h2 class="ion-text-center" style="color: #793268">FF Company</h2>
+<div class="centra">
+<form #formulario="ngForm"  (ngSubmit)="login(formulario)" class="ion-padding">
+
+  <ion-list lines="none" class="ion-padding">
+    <ion-item>
+      <ion-input clearInput="true" placeholder="Correo" type="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" [(ngModel)]="user.correo" required>
+      </ion-input>
+    </ion-item>
+    <ion-item class=" ion-margin-top">
+      <ion-input clearInput="true" type="password" name="contraseña" placeholder="Contraseña" [(ngModel)]="user.contrasenya" required></ion-input>
+    </ion-item>
+    <small (click)="modalRecupera()">¿Has olvidado tu contraseña?</small>
+  <ion-button class="ion-margin-top new" strong="true" size="small" expand="block"   type="submit" [disabled]="formulario.invalid">
+    Entrar
+  </ion-button>
+  </ion-list>
+</form>
+  </div>
+  <div>
+    <ion-text class="ion-text-center" style="color: #cf3c4f">
+    <small class="ion-justify-content-around">¿Aún no estas registrado?</small>
+    </ion-text>
+  <ion-button expand="block" class="registrarse" color="companytwo"  size="medium" routerLink="/registrer" fill="outline"> Registrarse</ion-button>
+  </div>
+</ion-content>

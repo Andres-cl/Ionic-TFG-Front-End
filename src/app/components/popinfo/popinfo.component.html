@@ -1,0 +1,75 @@
+<div class="popover miestilo fondo">
+  <ion-list class="fondo ion-no-padding">
+    <div  *ngIf="carrito.lineasCarrito.length > 0">
+    <ion-item #element *ngFor="let p of carrito.lineasCarrito; let i = index" class="ion-text-wrap darkiconos  ion-no-padding ion-no-margin">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col  size="2" class=" ion-text-center">
+            <ion-button color="medium" fill="clear" (click)="carrito.reduceLineaCarrito(p,i,carrito.lineasCarrito, element)">
+              <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col  size="2" class="ion-text-end">
+            {{p.cantidad}}
+          </ion-col>
+
+          <ion-col size="2" class="ion-text-center">
+            <ion-button color="medium" fill="clear" (click)="carrito.aumentaLineaCarrito(p, i,carrito.lineasCarrito)">
+              <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+          <ion-col size="2" offset="4">
+            <ion-button color="medium" fill="clear" (click)="carrito.eliminaProductoCarrito(p,i,carrito.lineasCarrito, element)">
+              <ion-icon color="danger" name="trash" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8.5">
+            <b *ngIf="p.tupperid != null">Tupper personalizado</b>
+            <b class="ion-text-capitalize" *ngIf="p.platoid != null">{{p.nombrePlato}}</b>
+            <b *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan semanal'">Plan Semanal</b>
+            <b *ngIf="p.plansemanalid != null && p.tipo_producto === 'Plan personal'">Plan Personalizado</b>
+          </ion-col>
+          <ion-col size="3.5" class="ion-text-end">
+            {{ p.precio | currency:'EUR' }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="darkiconos">
+      <ion-grid>
+        <ion-row class="ion-justify-content-between">
+          <ion-col style="text-decoration: underline">
+             TOTAL:
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <b>{{ carrito.getTotal() | currency:'EUR' }}</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+      <ion-button class="ion-margin-top new" slot="center" (click)="tramitarPedido()"  fill="solid" expand="block">
+        Tramitar pedido
+      </ion-button>
+    </div>
+  </ion-list>
+  <div *ngIf="!globales.logeado" class="ion-text-center ion-padding ion-margin" >
+    <ion-text style="color: black">
+      Parece que aun no estas logueado...
+    </ion-text>
+    <ion-button (click)="pushIniciarSesion()" class="ion-margin-top" color="company" expand="block" strong="true">
+      Iniciar sesion
+    </ion-button>
+  </div>
+  <div class="ion-padding ion-text-center"  *ngIf="globales.logeado && globales.productosCarrito === 0">
+    <ion-img class="ion-padding" src="/assets/carritovacio2.jpg">
+    </ion-img>
+    <div class="ion-margin-top">
+    <ion-note >
+      Tu carrito esta vacio, a comprar!
+    </ion-note>
+    </div>
+  </div>
+</div>

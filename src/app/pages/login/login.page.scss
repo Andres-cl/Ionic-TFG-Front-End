@@ -1,0 +1,26 @@
+.registrarse{
+  --background-activated:  #793268;
+}
+.new{
+  --background: #86cd97;
+  --background-activated: #7dd692;
+}
+
+  ion-item {
+    --border-color: transparent !important;
+    --highlight-height: 0;
+    --background : none;
+    border: 1px solid #0c4e23;
+    border-radius: 5px;
+    &.item-has-focus {
+      border: 1px solid #793268;
+    }
+    background: #ebf7ed;
+  }
+  ion-input{
+    color: black;
+  }
+
+.centra{
+  margin-top: 10%;
+}

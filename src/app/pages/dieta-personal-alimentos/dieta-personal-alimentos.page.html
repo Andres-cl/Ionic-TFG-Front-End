@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-capitalize">{{tipo}}:</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3 class="ion-margin-vertical ion-text-center"><b>MARCA LOS QUE NO DESEES:</b></h3>
+<ion-list>
+  <ion-item *ngFor="let a of alimentos; let i = index" class="ion-text-wrap">
+    <ion-avatar slot="start">
+      <ion-img [src]="a.foto"></ion-img>
+    </ion-avatar>
+    <ion-label>{{a.nombre}}</ion-label>
+    <ion-checkbox slot="end" color="success" [(ngModel)]="checked[i]"></ion-checkbox>
+  </ion-item>
+</ion-list>
+  <ion-row class="ion-justify-content-center ion-margin-top"style="margin-bottom: 5%">
+    <ion-col size="4">
+    <ion-button (click)="aceptar()" expand="block" fill="outline" color="company" class="exito">Aceptar</ion-button>
+  </ion-col>
+    <ion-col size="4">
+      <ion-button (click)="cancelar()" expand="block" fill="outline" color="danger" class="cancelado">Cancelar</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
