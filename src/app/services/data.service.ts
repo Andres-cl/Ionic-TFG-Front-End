@@ -12,104 +12,107 @@ import {
   Tupper,
   Usuarios
 } from "../interfaces/modelos";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
+  API_URI:string = 'http://localhost:3000/api/ff/';
+
   constructor(private http: HttpClient) {
   }
 
   compruebaUsuario(user: string, pass: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/usuarios/${user}/${pass}`);
+    return this.http.get(this.API_URI+`usuarios/${user}/${pass}`);
   }
 
   creaUsuario(user: Usuarios) {
-    return this.http.post('http://192.168.1.38:3000/api/ff/usuarios', user);
+    return this.http.post(this.API_URI+'usuarios', user);
   }
 
   modificaUsusario(id: number, user: Usuarios) {
-    return this.http.put(`http://192.168.1.38:3000/api/ff/usuarios/${id}`, user);
+    return this.http.put(this.API_URI+`usuarios/${id}`, user);
   }
 
   getUsuario(id: number) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/usuarios/${id}`);
+    return this.http.get(this.API_URI+`usuarios/${id}`);
   }
 
   getDirecciones(id: number) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/direcciones/${id}`);
+    return this.http.get(this.API_URI+`direcciones/${id}`);
   }
 
   getDireccion(id: number) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/direccion/${id}`);
+    return this.http.get(this.API_URI+`direccion/${id}`);
   }
 
   eliminaDireccion(id: number) {
-    return this.http.delete(`http://192.168.1.38:3000/api/ff/direcciones/${id}`);
+    return this.http.delete(this.API_URI+`direcciones/${id}`);
   }
 
   creaDireccion(direccion: Direccion) {
-    return this.http.post('http://192.168.1.38:3000/api/ff/direcciones', direccion);
+    return this.http.post(this.API_URI+'direcciones', direccion);
   }
 
   modificaDireccion(id: number, direccion: Direccion) {
-    return this.http.put(`http://192.168.1.38:3000/api/ff/direcciones/${id}`, direccion);
+    return this.http.put(this.API_URI+`direcciones/${id}`, direccion);
   }
 
   compruebaCorreo(correo: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/usuarios/prueba/mail/${correo}`);
+    return this.http.get(this.API_URI+`usuarios/prueba/mail/${correo}`);
   }
 
   getPlatosCategoria(categoria: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/platos/tipoplato/${categoria}`);
+    return this.http.get(this.API_URI+`platos/tipoplato/${categoria}`);
   }
   getPlato(id: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/platos/${id}`);
+    return this.http.get(this.API_URI+`platos/${id}`);
   }
 
   getAllPlatos() {
-    return this.http.get('http://192.168.1.38:3000/api/ff/platos/');
+    return this.http.get(this.API_URI+'platos/');
   }
 
   getAlimentosCategoria(categoria: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/alimentos/categoria/${categoria}`);
+    return this.http.get(this.API_URI+`alimentos/categoria/${categoria}`);
   }
   getAlimentos() {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/alimentos/`);
+    return this.http.get(this.API_URI+`alimentos/`);
   }
 
   getAlimentoNombre(nombre: string) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/alimentos/nombre/${nombre}`);
+    return this.http.get(this.API_URI+`alimentos/nombre/${nombre}`);
   }
   getAlimentoId(id : number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/alimentos/${id}`);
+    return this.http.get(this.API_URI+`alimentos/${id}`);
   }
 
   creaLineaCarrito(linea: lineasCarrito) {
-    return this.http.post('http://192.168.1.38:3000/api/ff/lineas_carrito/', linea);
+    return this.http.post(this.API_URI+'lineas_carrito/', linea);
   }
 
   getLineas(id: number) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/lineas_carrito/${id}`);
+    return this.http.get(this.API_URI+`lineas_carrito/${id}`);
   }
 
   getPreguntas() {
-    return this.http.get('http://192.168.1.38:3000/api/ff/faq/');
+    return this.http.get(this.API_URI+'faq/');
   }
 
   creaMensaje(mensaje: Mensaje) {
-    return this.http.post('http://192.168.1.38:3000/api/ff/mensajes/', mensaje);
+    return this.http.post(this.API_URI+'mensajes/', mensaje);
   }
 
   creaTupper(tupper: Tupper) {
-    return this.http.post('http://192.168.1.38:3000/api/ff/tuppers', tupper);
+    return this.http.post(this.API_URI+'tuppers', tupper);
   }
   creaAlimentoTupper(alimento: AlimentoTupper){
-    return this.http.post('http://192.168.1.38:3000/api/ff/tuppersalimentos', alimento);
+    return this.http.post(this.API_URI+'tuppersalimentos', alimento);
   }
   getAlimentosTupper(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/tuppersalimentos/${id}`);
+    return this.http.get(this.API_URI+`tuppersalimentos/${id}`);
   }
   async getAlsTupper(id:number){
     try {
@@ -119,10 +122,10 @@ export class DataService {
     }
   }
   getTupper(id: number) {
-    return this.http.get(`http://192.168.1.38:3000/api/ff/tuppers/tupper/${id}`);
+    return this.http.get(this.API_URI+`tuppers/tupper/${id}`);
   }
   getTuppers(){
-    return this.http.get('http://192.168.1.38:3000/api/ff/tuppers/');
+    return this.http.get(this.API_URI+'tuppers/');
   }
   async getAllTuppers(){
     try {
@@ -132,50 +135,50 @@ export class DataService {
     }
   }
   modificaLineaDeCarrito(id:number, linea:lineasCarrito){
-    return this.http.put(`http://192.168.1.38:3000/api/ff/lineas_carrito/${id}`, linea);
+    return this.http.put(this.API_URI+`lineas_carrito/${id}`, linea);
   }
   eliminaLineaCarrito(id:number){
-    return this.http.delete(`http://192.168.1.38:3000/api/ff/lineas_carrito/${id}`);
+    return this.http.delete(this.API_URI+`lineas_carrito/${id}`);
   }
   eliminaLineasCarritoUsuario(id:number){
-    return this.http.delete(`http://192.168.1.38:3000/api/ff/lineas_carrito/usuario/${id}`);
+    return this.http.delete(this.API_URI+`lineas_carrito/usuario/${id}`);
   }
   creaPedido(pedido:Pedido){
-    return this.http.post('http://192.168.1.38:3000/api/ff/pedidos', pedido);
+    return this.http.post(this.API_URI+'pedidos', pedido);
   }
   creaLineaPedido(linea:LineaPedido){
-    return this.http.post('http://192.168.1.38:3000/api/ff/lineas_pedido', linea);
+    return this.http.post(this.API_URI+'lineas_pedido', linea);
   }
   getLineaPedido(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/lineas_pedido/${id}`);
+    return this.http.get(this.API_URI+`lineas_pedido/${id}`);
   }
   getCodigoPromocional(descuento:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/codigospromocionales/descuento/${descuento}`);
+    return this.http.get(this.API_URI+`codigospromocionales/descuento/${descuento}`);
   }
   getCodigoPromocionalPorId(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/codigospromocionales/${id}`);
+    return this.http.get(this.API_URI+`codigospromocionales/${id}`);
 
   }
   getPedido(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/pedidos/getOne/${id}`);
+    return this.http.get(this.API_URI+`pedidos/getOne/${id}`);
   }
   getPedidos(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/pedidos/${id}`);
+    return this.http.get(this.API_URI+`pedidos/${id}`);
   }
   creaDietaPersonal(dieta:DietaPersonall){
-    return this.http.post('http://192.168.1.38:3000/api/ff/dietaPersonal', dieta);
+    return this.http.post(this.API_URI+'dietaPersonal', dieta);
   }
   creaAlimentoNoDeseado(alimento:AlimentosIndeseados){
-    return this.http.post('http://192.168.1.38:3000/api/ff/dietaPersonal/alimentosIndeseados', alimento);
+    return this.http.post(this.API_URI+'dietaPersonal/alimentosIndeseados', alimento);
   }
   creaPlanSemanal(plan:PlanSemanal){
-    return this.http.post('http://192.168.1.38:3000/api/ff/planSemanal', plan);
+    return this.http.post(this.API_URI+'planSemanal', plan);
   }
   creaLineaPlanSemanal(lineaPlan:PlatosPlanSemanal){
-    return this.http.post('http://192.168.1.38:3000/api/ff/planSemanal/lineasPlan', lineaPlan);
+    return this.http.post(this.API_URI+'planSemanal/lineasPlan', lineaPlan);
   }
   getLineasPlanSemanal(id:number){
-    return this.http.get(`http://192.168.1.38:3000/api/ff/planSemanal/lineasPlan/${id}`);
+    return this.http.get(this.API_URI+`planSemanal/lineasPlan/${id}`);
   }
   async compruebaExistenciaTupper(alimentosNuevos:any[], extras:Alimento[]) {
     let contador;
